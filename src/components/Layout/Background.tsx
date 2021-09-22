@@ -12,7 +12,7 @@ type Props = {
 
 const Background = ({ children }: Props) => (
   <ImageBackground
-    source={require('../assets/images/back.webp')}
+    source={require('../../assets/images/back.webp')}
     resizeMode="repeat"
     style={styles.background}
   >
