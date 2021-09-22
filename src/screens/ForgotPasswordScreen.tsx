@@ -1,11 +1,12 @@
 import React, { memo, useState } from 'react';
 import { Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { emailValidator } from '../shared/utils';
-import Background from '../components/layout/Background';
-import BackButton from '../components/layout/BackButton';
-import TextInput from '../components/layout/TextInput';
+
+import CustomBackground from '../components/Layout/CustomBackground';
+import CustomTextInput from '../components/Layout/CustomTextInput';
+import CustomButton from '../components/Layout/CustomButton';
+
 import { theme } from '..//shared/theme';
-import Button from '../components/layout/Button';
+import { emailValidator } from '../shared/utils';
 import { Navigation } from '../constants/types';
 
 type Props = {
@@ -23,14 +24,13 @@ const ForgotPasswordScreen = ({ navigation }: Props) => {
       return;
     }
 
-    navigation.navigate('LoginScreen');
+    navigation.navigate('Login');
   };
 
   return (
-    <Background>
-      <BackButton goBack={() => navigation.navigate('LoginScreen')} />
-      
-      <TextInput
+    <CustomBackground>
+
+      <CustomTextInput
         label="E-mail address"
         returnKeyType="done"
         value={email.value}
@@ -43,17 +43,17 @@ const ForgotPasswordScreen = ({ navigation }: Props) => {
         keyboardType="email-address"
       />
 
-      <Button mode="contained" onPress={_onSendPressed} style={styles.button}>
+      <CustomButton mode="contained" onPress={_onSendPressed} style={styles.button}>
         Send Reset Instructions
-      </Button>
+      </CustomButton>
 
       <TouchableOpacity
         style={styles.back}
-        onPress={() => navigation.navigate('LoginScreen')}
+        onPress={() => navigation.navigate('Login')}
       >
         <Text style={styles.label}>← Back to login</Text>
       </TouchableOpacity>
-    </Background>
+    </CustomBackground>
   );
 };
 

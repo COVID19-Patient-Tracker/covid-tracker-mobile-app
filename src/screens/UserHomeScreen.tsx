@@ -1,6 +1,7 @@
 import React, { memo } from 'react';
-import { Text, Button, Alert, View } from 'react-native';
-import Background from '../components/Layout/Background';
+import { Text, View } from 'react-native';
+
+import CustomBackground from '../components/Layout/CustomBackground';
 
 import { Navigation } from '../constants/types';
 
@@ -9,11 +10,11 @@ type Props = {
 };
 
 const UserHomeScreen = ({ navigation }: Props) => (
-    <Background>
+    <CustomBackground>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <Text>Welcome to User Home!</Text>
         </View>
-    </Background>
+    </CustomBackground>
 );
 
 export default memo(UserHomeScreen);

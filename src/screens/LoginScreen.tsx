@@ -1,11 +1,10 @@
 import React, { memo, useState } from 'react';
 import { Text, View, TouchableOpacity, StyleSheet, } from 'react-native';
 
-import Background from '../components/Layout/Background';
-import TextInput from '../components/Layout/TextInput';
-import BackButton from '../components/Layout/BackButton';
-import Button from '../components/Layout/Button';
-
+import CustomBackground from '../components/Layout/CustomBackground';
+import CustomTextInput from '../components/Layout/CustomTextInput';
+import CustomButton from '../components/Layout/CustomButton';
+import CustomHeader from '../components/Layout/CustomHeader';
 
 import { theme } from '../shared/theme'
 import { emailValidator, passwordValidator } from '../shared/utils';
@@ -30,14 +29,15 @@ const LoginScreen = ({ navigation }: Props) => {
             return;
         }
 
-        navigation.navigate('UserHomeScreen');
+        navigation.navigate('UserRoot');
     };
 
     return (
-        <Background>
-            <BackButton goBack={() => navigation.navigate('HomeScreen')} />
+        <CustomBackground>
 
-            <TextInput
+            <CustomHeader>Welcome back...</CustomHeader>
+
+            <CustomTextInput
                 label="Email"
                 returnKeyType="next"
                 value={email.value}
@@ -50,7 +50,7 @@ const LoginScreen = ({ navigation }: Props) => {
                 keyboardType="email-address"
             />
 
-            <TextInput
+            <CustomTextInput
                 label="Password"
                 returnKeyType="done"
                 value={password.value}
@@ -62,23 +62,23 @@ const LoginScreen = ({ navigation }: Props) => {
 
             <View style={styles.forgotPassword}>
                 <TouchableOpacity
-                    onPress={() => navigation.navigate('ForgotPasswordScreen')}
+                    onPress={() => navigation.navigate('ForgotPassword')}
                 >
                     <Text style={styles.label}>Forgot your password?</Text>
                 </TouchableOpacity>
             </View>
 
-            <Button mode="contained" onPress={_onLoginPressed}>
+            <CustomButton mode="contained" onPress={_onLoginPressed}>
                 Login
-            </Button>
+            </CustomButton>
 
             <View style={styles.row}>
                 <Text style={styles.label}>Don’t have an account? </Text>
-                <TouchableOpacity onPress={() => navigation.navigate('RegisterScreen')}>
+                <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
                     <Text style={styles.link}>Sign up</Text>
                 </TouchableOpacity>
             </View>
-        </Background>
+        </CustomBackground>
     );
 };
 
