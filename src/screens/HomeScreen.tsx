@@ -1,6 +1,7 @@
 import React, { memo } from 'react';
 import { Text, Button, View } from 'react-native';
-import Background from '../components/Layout/Background';
+
+import CustomBackground from '../components/Layout/CustomBackground';
 
 import { Navigation } from '../constants/types';
 
@@ -9,21 +10,21 @@ type Props = {
 };
 
 const HomeScreen = ({ navigation }: Props) => (
-    <Background>
-         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <CustomBackground>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <Text>Welcome to Public Home!</Text>
         </View>
         <Button
-            onPress={() => navigation.navigate('LoginScreen')}
+            onPress={() => navigation.navigate('Login')}
             title="GO TO LOGIN"
             color="#841584"
         />
         <Button
-            onPress={() => navigation.navigate('RegisterScreen')}
+            onPress={() => navigation.navigate('SignUp')}
             title="GO TO REGISTER"
             color="#841584"
         />
-    </Background>
+    </CustomBackground>
 
 );
 

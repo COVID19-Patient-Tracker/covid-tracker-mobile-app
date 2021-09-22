@@ -1,10 +1,10 @@
 import React, { memo, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-import Background from '../components/Layout/Background';
-import Button from '../components/Layout/Button';
-import TextInput from '../components/Layout/TextInput';
-import BackButton from '../components/Layout/BackButton';
+import CustomBackground from '../components/Layout/CustomBackground';
+import CustomButton from '../components/Layout/CustomButton';
+import CustomTextInput from '../components/Layout/CustomTextInput';
+import CustomHeader from '../components/Layout/CustomHeader';
 
 import { theme } from '../shared/theme';
 import { Navigation } from '../constants/types';
@@ -35,14 +35,14 @@ const RegisterScreen = ({ navigation }: Props) => {
       return;
     }
 
-    navigation.navigate('UserHomeScreen');
+    navigation.navigate('UserRoot');
   };
 
   return (
-    <Background>
-      <BackButton goBack={() => navigation.navigate('HomeScreen')} />
+    <CustomBackground>
+      <CustomHeader>Sign Up Here</CustomHeader>
 
-      <TextInput
+      <CustomTextInput
         label="Hospital ID"
         returnKeyType="next"
         value={name.value}
@@ -51,7 +51,7 @@ const RegisterScreen = ({ navigation }: Props) => {
         errorText={name.error}
       />
 
-      <TextInput
+      <CustomTextInput
         label="Email"
         returnKeyType="next"
         value={email.value}
@@ -64,7 +64,7 @@ const RegisterScreen = ({ navigation }: Props) => {
         keyboardType="email-address"
       />
 
-      <TextInput
+      <CustomTextInput
         label="Password"
         returnKeyType="done"
         value={password.value}
@@ -74,17 +74,17 @@ const RegisterScreen = ({ navigation }: Props) => {
         secureTextEntry
       />
 
-      <Button mode="contained" onPress={_onSignUpPressed} style={styles.button}>
+      <CustomButton mode="contained" onPress={_onSignUpPressed} style={styles.button}>
         Sign Up
-      </Button>
+      </CustomButton>
 
       <View style={styles.row}>
         <Text style={styles.label}>Already have an account? </Text>
-        <TouchableOpacity onPress={() => navigation.navigate('LoginScreen')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Login')}>
           <Text style={styles.link}>Login</Text>
         </TouchableOpacity>
       </View>
-    </Background>
+    </CustomBackground>
   );
 };
 
