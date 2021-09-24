@@ -1,5 +1,10 @@
 import * as React from 'react';
-import { StyleSheet, Button, Alert, View, Text } from 'react-native';
+import { StyleSheet, Button, Alert, View, Text, ScrollView } from 'react-native';
+
+import CustomTouchable from '../../components/UserScreen/CustomTouchable';
+import CustomTouchable2 from '../../components/UserScreen/CustomTouchable2';
+import WelcomeCard from '../../components/UserScreen/WelcomeCard';
+import ListView from '../../components/UserScreen/ListView';
 
 import { RootTabScreenProps } from '../../constants/navtypes';
 
@@ -8,15 +13,28 @@ export default function UserHomeScreen({ navigation }: RootTabScreenProps<'UserH
     const [text, onChangeText] = React.useState("Useless Text");
     const [number, onChangeNumber] = React.useState(null);
 
+    const testNavigation = () => navigation.navigate('TestRoot');
+    const visitNavigation = () => navigation.navigate('Visit');
+
     return (
-        <View style={styles.container}>
-            <View>  <Text>   Welcome to Logged in user Home  </Text></View>
-            <Button
-                onPress={() => Alert.alert('Button with adjusted color pressed')}
-                title="SEE TEST RESULTS"
-                color="#841584"
-                accessibilityLabel="Learn more about this purple button" />
-        </View>
+        <ScrollView>
+            <View style={styles.container}>
+                <WelcomeCard />
+                <Text style={styles.title}>Services</Text>
+                <CustomTouchable
+                    headText="Check Test Results"
+                    onNavigatePress = {testNavigation}
+                />
+                <br></br>
+                <CustomTouchable2
+                    headText="Hospital Visit"
+                    onBtnPress = {visitNavigation}
+                />
+                <Text style={styles.title}>Contacts of recent visited Hospitals</Text>
+                <ListView />
+            </View>
+            
+        </ScrollView>
     );
 }
 
@@ -25,23 +43,13 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        padding: 10,
     },
     title: {
-        fontSize: 20,
+        fontSize: 15,
         fontWeight: 'bold',
+        paddingTop: 30,
+        paddingBottom: 10,
+        alignSelf: "flex-start"
     },
-    separator: {
-        marginVertical: 30,
-        height: 1,
-        width: '80%',
-    },
-    input: {
-        height: 40,
-        margin: 5,
-        borderWidth: 1,
-        padding: 5,
-        borderRadius: 5,
-        width: 300,
-    },
-
 });
