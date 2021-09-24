@@ -2,6 +2,7 @@ import * as React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 
 import { Pressable } from 'react-native';
@@ -17,7 +18,9 @@ import {
   NotFoundScreen,
   UserHomeScreen,
   UserProfileScreen,
-
+  PcrTestScreen,
+  AntigenTestScreen,
+  VisitHistoryScreen,
 } from '../screens';
 
 export default function Navigation() {
@@ -59,6 +62,22 @@ function RootNavigator() {
         }}
       />
       <Stack.Screen name="UserRoot" component={BottomTabNavigator} options={{ headerShown: false }} />
+      <Stack.Screen name="Visit" component={VisitHistoryScreen}
+        options={{
+          title: 'Visit History',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
+      />
+      <Stack.Screen name="TestRoot" component={TopTapNavigator}
+        options={{
+          title: 'Test Results',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
+      />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
     </Stack.Navigator>
   );
@@ -73,22 +92,22 @@ function BottomTabNavigator() {
     <BottomTab.Navigator
       initialRouteName="UserHome"
       screenOptions={{
-        //tabBarActiveTintColor: Colors[colorScheme].tint,
+        tabBarActiveTintColor: "#6a8eda",
       }}>
       <BottomTab.Screen
         name="UserHome"
         component={UserHomeScreen}
         options={({ navigation }: RootTabScreenProps<'UserHome'>) => ({
           title: 'Home',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
           headerRight: () => (
             <Pressable
-              onPress={() => navigation.navigate('Modal')}
+              onPress={() => navigation.navigate('Root')}
               style={({ pressed }) => ({
                 opacity: pressed ? 0.5 : 1,
               })}>
               <FontAwesome
-                name="info-circle"
+                name="sign-out"
                 size={25}
                 //color={Colors[colorScheme].text}
                 style={{ marginRight: 15 }}
@@ -102,10 +121,36 @@ function BottomTabNavigator() {
         component={UserProfileScreen}
         options={{
           title: 'Profile',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="user-circle-o" color={color} />,
         }}
       />
     </BottomTab.Navigator>
+  );
+}
+
+const Tab = createMaterialTopTabNavigator();
+
+function TopTapNavigator() {
+  return (
+    <Tab.Navigator
+      initialRouteName="PcrTest"
+      screenOptions={{
+        tabBarActiveTintColor: '#fff',
+        tabBarLabelStyle: { fontSize: 15, fontWeight:"bold" },
+        tabBarStyle: { backgroundColor: "#0c2a61" },
+      }}
+    >
+      <Tab.Screen
+        name="PcrTest"
+        component={PcrTestScreen}
+        options={{ tabBarLabel: 'PCR Test' }}
+      />
+      <Tab.Screen
+        name="AntTest"
+        component={AntigenTestScreen}
+        options={{ tabBarLabel: 'Antigen Test' }}
+      />
+    </Tab.Navigator>
   );
 }
 
@@ -113,7 +158,7 @@ function TabBarIcon(props: {
   name: React.ComponentProps<typeof FontAwesome>['name'];
   color: string;
 }) {
-  return <FontAwesome size={40} style={{ marginBottom: -3 }} {...props} />;
+  return <FontAwesome size={30} style={{ marginBottom: -3 }} {...props} />;
 }
 
 

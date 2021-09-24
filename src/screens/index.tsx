@@ -5,3 +5,6 @@ export { default as ForgotPasswordScreen } from './ForgotPasswordScreen';
 export { default as NotFoundScreen } from './NotFoundScreen';
 export { default as UserHomeScreen } from './UserScreen/UserHomeScreen';
 export { default as UserProfileScreen } from './UserScreen/UserProfileScreen';
+export { default as PcrTestScreen } from './UserScreen/PcrTestScreen';
+export { default as AntigenTestScreen } from './UserScreen/AntigenTestScreen';
+export { default as VisitHistoryScreen } from './UserScreen/VisitHistoryScreen';
