@@ -12,8 +12,8 @@ type Props = {
 
 const Background = ({ children }: Props) => (
   <ImageBackground
-    source={require('../../assets/images/back.webp')}
-    resizeMode="repeat"
+    source={require('../../assets/images/backg.jpg')}
+    resizeMode="cover"
     style={styles.background}
   >
     <KeyboardAvoidingView style={styles.container} behavior="padding">
