@@ -2,6 +2,7 @@ import React, { memo } from 'react';
 import { Text, Button, View } from 'react-native';
 
 import CustomBackground from '../components/Layout/CustomBackground';
+import TestResultCard from '../components/UserScreen/TestResultCard';
 
 import { Navigation } from '../constants/types';
 
@@ -22,6 +23,11 @@ const HomeScreen = ({ navigation }: Props) => (
         <Button
             onPress={() => navigation.navigate('SignUp')}
             title="GO TO REGISTER"
+            color="#841584"
+        />
+        <Button
+            onPress={() => navigation.navigate('UserRoot')}
+            title="GO TO HOME"
             color="#841584"
         />
     </CustomBackground>

@@ -19,7 +19,7 @@ const CustomTouchable2 = ({ headText, onBtnPress}: customProp) => {
         justifyContent: 'center',
 
       }]}>
-        <View style={{ position: 'relative', width: "60%" }}>
+        <View style={{ position: 'relative', width: "90%" }}>
           <Text style={styles.stext}>{headText}</Text>
         </View>
       </View>
