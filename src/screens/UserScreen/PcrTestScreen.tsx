@@ -1,47 +1,36 @@
 import * as React from 'react';
 import { StyleSheet, Button, Alert, View, Text } from 'react-native';
 
-import { RootTabScreenProps } from '../../constants/navtypes';
+
+import TestResultCard from '../../components/UserScreen/TestResultCard';
+
+import { Test } from '../../constants/datatypes';
+
+const dataSet = [
+    {
+        id: 1,
+        date: "2021-12-12",
+        place: "Vaccination Center",
+        result: "pending"
+    },
+]
 
 export default function PcrTestScreen() {
-
-    const [text, onChangeText] = React.useState("Useless Text");
-    const [number, onChangeNumber] = React.useState(null);
-
     return (
         <View style={styles.container}>
-            <View>  <Text>   This is user Profile </Text></View>
-            <Button
-                onPress={() => Alert.alert('Button with adjusted color pressed')}
-                title="PCR Test"
-                color="#841584"
-                accessibilityLabel="Learn more about this purple button" />
+            {dataSet.map((test: Test) => {
+                return (
+                    <TestResultCard key={test.id} testData={test} />
+                )
+            })};
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'space-around',
+        padding: 10,
     },
-    title: {
-        fontSize: 20,
-        fontWeight: 'bold',
-    },
-    separator: {
-        marginVertical: 30,
-        height: 1,
-        width: '80%',
-    },
-    input: {
-        height: 40,
-        margin: 5,
-        borderWidth: 1,
-        padding: 5,
-        borderRadius: 5,
-        width: 300,
-    },
-
 });
