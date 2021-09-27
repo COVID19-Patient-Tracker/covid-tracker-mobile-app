@@ -11,10 +11,10 @@ const VisitHistoryScreen = ({ navigation }: Props) => {
 
   return (
     <View>
-      <View>  <Text>   This is user Profile </Text></View>
+      <View>  <Text>   Under Development </Text></View>
       <Button
         onPress={() => Alert.alert('Button with adjusted color pressed')}
-        title="Antigen Test"
+        title="UNDER DEVELOPMENT"
         color="#841584"
         accessibilityLabel="Learn more about this purple button" />
     </View>

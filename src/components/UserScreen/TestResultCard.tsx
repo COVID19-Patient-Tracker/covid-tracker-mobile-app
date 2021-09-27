@@ -40,7 +40,8 @@ const TestResultCard = ({ testData }: customProp) => {
 
 const styles = StyleSheet.create({
     cardStyle: {
-        borderWidth: 1,
+        //borderWidth: 1,
+        backgroundColor: "#97c7e1",
         borderRadius: 15,
         width: "100%",
         margin:5,
