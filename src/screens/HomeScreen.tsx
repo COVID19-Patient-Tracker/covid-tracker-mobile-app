@@ -1,8 +1,11 @@
 import React, { memo } from 'react';
-import { Text, Button, View } from 'react-native';
+import { Text, View, ScrollView, Image, StyleSheet } from 'react-native';
+import { Button } from 'react-native-paper';
 
 import CustomBackground from '../components/Layout/CustomBackground';
 import TestResultCard from '../components/UserScreen/TestResultCard';
+import CustomBackground2 from '../components/Layout/CustomBackground2';
+import CustomHeader from '../components/Layout/CustomHeader';
 
 import { Navigation } from '../constants/types';
 
@@ -11,27 +14,40 @@ type Props = {
 };
 
 const HomeScreen = ({ navigation }: Props) => (
-    <CustomBackground>
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>Welcome to Public Home!</Text>
+    <CustomBackground2>
+        <View>
+            <CustomHeader>COVID-SAFE</CustomHeader>
+        </View>
+
+        <View style={{ flex: 0.8, justifyContent: 'center', alignItems: 'center' }}>
+            <Text></Text>
         </View>
         <Button
+            icon="camera"
+            mode="contained"
+            color="#0036ee"
+            style={styles.btn}
             onPress={() => navigation.navigate('Login')}
-            title="GO TO LOGIN"
-            color="#841584"
-        />
+        >
+            GO TO LOGIN
+        </Button>
+        <br></br>
         <Button
+            icon="camera"
+            mode="contained"
+            color="#0036ee"
+            style={styles.btn}
             onPress={() => navigation.navigate('SignUp')}
-            title="GO TO REGISTER"
-            color="#841584"
-        />
-        <Button
-            onPress={() => navigation.navigate('UserRoot')}
-            title="GO TO HOME"
-            color="#841584"
-        />
-    </CustomBackground>
-
-);
-
+        >
+            GO TO SIGNUP
+        </Button>
+    </CustomBackground2>
+)
 export default memo(HomeScreen);
+
+const styles = StyleSheet.create({
+    btn: {
+        paddingTop: 4,
+        paddingBottom: 4,
+    },
+});
