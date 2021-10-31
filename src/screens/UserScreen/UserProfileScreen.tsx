@@ -22,19 +22,19 @@ export default function UserProfileScreen({ navigation }: RootTabScreenProps<'Us
                     </View>
                 </View>
                 <View style={styles.listView}>
-                    <ListItem containerStyle={styles.listItemContainer} key={3} bottomDivider>
+                    <ListItem containerStyle={styles.listItemContainer} key={1} bottomDivider>
                         <ListItem.Content>
                             <ListItem.Title>NIC</ListItem.Title>
                             <ListItem.Subtitle>&nbsp;&nbsp;975787653v</ListItem.Subtitle>
                         </ListItem.Content>
                     </ListItem>
-                    <ListItem containerStyle={styles.listItemContainer} key={3} bottomDivider>
+                    <ListItem containerStyle={styles.listItemContainer} key={2} bottomDivider>
                         <ListItem.Content>
                             <ListItem.Title>Address</ListItem.Title>
                             <ListItem.Subtitle>&nbsp;&nbsp;678/6, Colombo Road, Kurunegala</ListItem.Subtitle>
                         </ListItem.Content>
                     </ListItem>
-                    <ListItem containerStyle={styles.listItemContainer} key={4} bottomDivider>
+                    <ListItem containerStyle={styles.listItemContainer} key={3} bottomDivider>
                         <ListItem.Content>
                             <ListItem.Title>Contact No</ListItem.Title>
                             <ListItem.Subtitle>&nbsp;&nbsp;077-1223456</ListItem.Subtitle>
