@@ -4,14 +4,11 @@ import { StyleSheet, Button, Alert, View, Text, ScrollView } from 'react-native'
 import CustomTouchable from '../../components/UserScreen/CustomTouchable';
 import CustomTouchable2 from '../../components/UserScreen/CustomTouchable2';
 import WelcomeCard from '../../components/UserScreen/WelcomeCard';
-import ListView from '../../components/UserScreen/ListView';
+import CallCard from '../../components/UserScreen/CallCard';
 
 import { RootTabScreenProps } from '../../constants/navtypes';
 
 export default function UserHomeScreen({ navigation }: RootTabScreenProps<'UserHome'>) {
-
-    const [text, onChangeText] = React.useState("Useless Text");
-    const [number, onChangeNumber] = React.useState(null);
 
     const testNavigation = () => navigation.navigate('TestRoot');
     const visitNavigation = () => navigation.navigate('Visit');
@@ -23,17 +20,18 @@ export default function UserHomeScreen({ navigation }: RootTabScreenProps<'UserH
                 <Text style={styles.title}>Services</Text>
                 <CustomTouchable
                     headText="Check Test Results"
-                    onNavigatePress = {testNavigation}
+                    onBtnPress={testNavigation}
                 />
-                <br></br>
                 <CustomTouchable2
-                    headText="Hospital Visit"
-                    onBtnPress = {visitNavigation}
+                    headText="Hospital Visit History"
+                    onBtnPress={visitNavigation}
                 />
-                <Text style={styles.title}>Contacts of recent visited Hospitals</Text>
-                <ListView />
+                <Text style={styles.title}>Contact Directory</Text>
+                <CallCard number="1990" hospital="Emergency Ambulance Service" />
+                <CallCard number="1999" hospital="Health Information" />
+                <CallCard number="117" hospital="Covid Complaints" />
+                <CallCard number="0112 112 705" hospital="Quarantine Unit" />
             </View>
-            
         </ScrollView>
     );
 }
@@ -41,9 +39,9 @@ export default function UserHomeScreen({ navigation }: RootTabScreenProps<'UserH
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent:'center',
         padding: 10,
+        alignItems:'center',
     },
     title: {
         fontSize: 15,
