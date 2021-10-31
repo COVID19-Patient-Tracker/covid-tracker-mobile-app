@@ -92,7 +92,7 @@ function BottomTabNavigator() {
     <BottomTab.Navigator
       initialRouteName="UserHome"
       screenOptions={{
-        tabBarActiveTintColor: "#6a8eda",
+        tabBarActiveTintColor: "#1c7a75",
       }}>
       <BottomTab.Screen
         name="UserHome"
@@ -136,8 +136,8 @@ function TopTapNavigator() {
       initialRouteName="PcrTest"
       screenOptions={{
         tabBarActiveTintColor: '#fff',
-        tabBarLabelStyle: { fontSize: 15, fontWeight:"bold" },
-        tabBarStyle: { backgroundColor: "#0c2a61" },
+        tabBarLabelStyle: { fontSize: 16, fontWeight:"bold" },
+        tabBarStyle: { backgroundColor: "#11a5a0" },
       }}
     >
       <Tab.Screen
