@@ -4,3 +4,11 @@ export type Test = {
     place: string;
     result: string;
 };
+
+export type VisitHistory = {
+    id: number;
+    date: string;
+    hospital: string;
+    ward: number;
+    status: string;
+};
