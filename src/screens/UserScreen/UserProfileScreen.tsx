@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { StyleSheet, Image, View, Text, ScrollView } from 'react-native';
-import { Avatar, ListItem } from 'react-native-elements'
+import { Avatar, ListItem } from 'react-native-elements';
+import { Icon } from 'react-native-elements'
 
 import { RootTabScreenProps } from '../../constants/navtypes';
 
@@ -23,27 +24,31 @@ export default function UserProfileScreen({ navigation }: RootTabScreenProps<'Us
                 </View>
                 <View style={styles.listView}>
                     <ListItem containerStyle={styles.listItemContainer} key={1} bottomDivider>
+                        <Icon  reverse size={20} name='badge' color="#34b7a6" />
                         <ListItem.Content>
-                            <ListItem.Title>NIC</ListItem.Title>
-                            <ListItem.Subtitle>&nbsp;&nbsp;975787653v</ListItem.Subtitle>
+                            <ListItem.Title style={styles.titleFont}>NIC</ListItem.Title>
+                            <ListItem.Subtitle>975787653v</ListItem.Subtitle>
                         </ListItem.Content>
                     </ListItem>
                     <ListItem containerStyle={styles.listItemContainer} key={2} bottomDivider>
+                        <Icon name='home' reverse size={20} color="#34b7a6"/>
                         <ListItem.Content>
-                            <ListItem.Title>Address</ListItem.Title>
-                            <ListItem.Subtitle>&nbsp;&nbsp;678/6, Colombo Road, Kurunegala</ListItem.Subtitle>
+                            <ListItem.Title style={styles.titleFont}>Address</ListItem.Title>
+                            <ListItem.Subtitle>678/6, Colombo Road, Kurunegala</ListItem.Subtitle>
                         </ListItem.Content>
                     </ListItem>
                     <ListItem containerStyle={styles.listItemContainer} key={3} bottomDivider>
+                        <Icon name='phone'  reverse size={20} color="#34b7a6" />
                         <ListItem.Content>
-                            <ListItem.Title>Contact No</ListItem.Title>
-                            <ListItem.Subtitle>&nbsp;&nbsp;077-1223456</ListItem.Subtitle>
+                            <ListItem.Title style={styles.titleFont}>Contact No</ListItem.Title>
+                            <ListItem.Subtitle>077-1223456</ListItem.Subtitle>
                         </ListItem.Content>
                     </ListItem>
                     <ListItem containerStyle={styles.listItemContainer} key={4} bottomDivider>
+                        <Icon name='today'  reverse size={20} color="#34b7a6" />
                         <ListItem.Content>
-                            <ListItem.Title>Birth Day</ListItem.Title>
-                            <ListItem.Subtitle>&nbsp;&nbsp;1998/11/12</ListItem.Subtitle>
+                            <ListItem.Title style={styles.titleFont}>Birth Day</ListItem.Title>
+                            <ListItem.Subtitle>1998/11/12</ListItem.Subtitle>
                         </ListItem.Content>
                     </ListItem>
                 </View>
@@ -79,7 +84,7 @@ const styles = StyleSheet.create({
     },
     userNameText: {
         color: '#5B5A5A',
-        fontSize: 18,
+        fontSize: 19,
         fontWeight: 'bold',
         textAlign: 'center',
     },
@@ -92,15 +97,19 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     listItemContainer: {
-        height: 55,
-        borderWidth: 0.5,
+        height: 70,
+        borderWidth: 1.5,
         borderColor: '#ECECEC',
-        width: '100%'
+        width: '100%',
+        padding: 5,
     },
     listView: {
-        height: 55,
-        borderWidth: 0.5,
+        height: 70,
+        borderWidth: 1.5,
         borderColor: '#ECECEC',
         width: '100%'
     },
+    titleFont: {
+        fontWeight: 'bold',
+      },
 });
