@@ -26,7 +26,7 @@ export default function AntigenTestScreen() {
             {dataSet.map((test : Test) => {
                 return (
                 <TestResultCard key={test.id} testData={test} />
-            )})};
+            )})}
         </View>
     );
 }

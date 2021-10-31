@@ -22,7 +22,7 @@ export default function PcrTestScreen() {
                 return (
                     <TestResultCard key={test.id} testData={test} />
                 )
-            })};
+            })}
         </View>
     );
 }
