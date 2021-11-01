@@ -31,7 +31,6 @@ const HomeScreen = ({ navigation }: Props) => (
         >
             GO TO LOGIN
         </Button>
-        <br></br>
         <Button
             icon="camera"
             mode="contained"
@@ -40,6 +39,24 @@ const HomeScreen = ({ navigation }: Props) => (
             onPress={() => navigation.navigate('SignUp')}
         >
             GO TO SIGNUP
+        </Button>
+        <Button
+            icon="camera"
+            mode="contained"
+            color="#0036ee"
+            style={styles.btn}
+            onPress={() => navigation.navigate('UserRoot')}
+        >
+            GO TO HOME
+        </Button>
+        <Button
+            icon="camera"
+            mode="contained"
+            color="#0036ee"
+            style={styles.btn}
+            onPress={() => navigation.navigate('Uploadxray')}
+        >
+            GO TO Upload Xray
         </Button>
     </CustomBackground2>
 )
