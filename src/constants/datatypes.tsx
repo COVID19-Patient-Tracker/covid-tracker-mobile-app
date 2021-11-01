@@ -5,6 +5,14 @@ export type Test = {
     result: string;
 };
 
+export type PcrTest = {
+    id: number;
+    patientId: number;
+    hospital_id: number;
+    test_data: string;
+    test_result: string;
+};
+
 export type VisitHistory = {
     id: number;
     date: string;
