@@ -21,6 +21,7 @@ import {
   PcrTestScreen,
   AntigenTestScreen,
   VisitHistoryScreen,
+  UploadXrayScreen,
 } from '../screens';
 
 export default function Navigation() {
@@ -79,6 +80,14 @@ function RootNavigator() {
         }}
       />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
+      <Stack.Screen name="Uploadxray" component={UploadXrayScreen}
+        options={{
+          title: 'Upload Xray',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
+      />
     </Stack.Navigator>
   );
 }
