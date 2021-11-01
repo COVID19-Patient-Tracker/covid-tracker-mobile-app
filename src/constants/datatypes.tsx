@@ -12,3 +12,20 @@ export type VisitHistory = {
     ward: number;
     status: string;
 };
+
+export type ImagePickerResultType = {
+    cancelled: true;
+} | ({
+    cancelled: false;
+} & ImageInfo);
+
+export type ImageInfo = {
+    uri: string;
+    width: number;
+    height: number;
+    type?: 'image' | 'video';
+    exif?: {
+        [key: string]: any;
+    };
+    base64?: string;
+};
