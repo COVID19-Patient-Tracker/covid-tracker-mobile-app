@@ -37,3 +37,8 @@ export type ImageInfo = {
     };
     base64?: string;
 };
+
+export type XrayResultType = {
+    result: string,
+    accuracy : string,
+}
