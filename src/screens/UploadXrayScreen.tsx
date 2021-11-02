@@ -1,24 +1,20 @@
-import React, { memo, useState } from 'react';
-import { Text, StyleSheet, TouchableOpacity, View, Image, ScrollView, ImagePickerResult, Platform } from 'react-native';
-
-import {ImagePickerResultType} from '../constants/datatypes';
-
-import CustomButton from '../components/Layout/CustomButton';
-
-import { theme } from '..//shared/theme';
-import { Navigation } from '../constants/types';
-import { Button } from 'react-native-paper';
-import * as ImagePicker from 'expo-image-picker';
-import { Icon } from 'react-native-elements'
+import React, { useState } from 'react';
 import axios from "axios";
+import { Text, StyleSheet, TouchableOpacity, View, Image, Platform, ActivityIndicator } from 'react-native';
+import { Icon } from 'react-native-elements'
+import * as ImagePicker from 'expo-image-picker';
 
-type Props = {
-    navigation: Navigation;
-};
+import XrayResultCard from '../components/UserScreen/XrayResultCard';
 
 export default function UploadXrayScreen() {
     const [selectedImage, setSelectedImage] = useState({ localUri: '' });
-    const [image, setImage] = useState<Blob >();
+    const [loading, setLoading] = useState(false);
+    const [showResult, setShowResult] = useState(false);
+    const [prediction, setPrediction] = useState("NORMAL");
+    const [acc, setAcc] = useState(0);
+    const [completed, setCompleted] = useState(false);
+    const [isError, setIsError] = useState(false);
+    const [message, setMessage] = useState("");
 
     const openImagePickerAsync = async () => {
         let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -29,36 +25,75 @@ export default function UploadXrayScreen() {
         }
 
         const pickerResult = await ImagePicker.launchImageLibraryAsync();
-        console.log(pickerResult);
+
         if (pickerResult.cancelled === true) {
             return;
         }
 
         setSelectedImage({ localUri: pickerResult.uri });
-       
     };
 
-    const handleUpload =  () => {
-        if (selectedImage.localUri !== '' && image !== null) {
-            console.log(selectedImage.localUri);
-            const formData = new FormData()
-            formData.append('image', Platform.OS === 'ios' ? selectedImage.localUri.replace('file://', '') : selectedImage.localUri, "123");
-            //There is an error check later
-            // axios.post("https://pneumonia-prediction-sep.herokuapp.com/predict",formData)
-            // .then((result) => {
-            //     console.log(result);
-            //     const normalAcc = parseFloat(result.data.normal);
-            //     const pneumoniaAcc = parseFloat(result.data.pneumonia)
-            //     if(normalAcc < pneumoniaAcc){
-                    
-            //     }else{
-                    
-            //     }
-            // });
+
+    const handleUpload = async () => {
+
+        if (selectedImage.localUri !== '') {
+
+            //There is an error in ios platform
+            const image_uri =  Platform.OS === 'ios' ? selectedImage.localUri.replace('file://', '') : selectedImage.localUri;
+
+            const response = await fetch(image_uri);
+            const blob = await response.blob();
+
+            const formData = new FormData();
+            formData.append('image', blob, "xray_image.jpg");
+      
+            setLoading(true);
+
+            axios.post("https://pneumonia-prediction-sep.herokuapp.com/predict", formData)
+                .then((result) => {
+                    console.log(result);
+
+                    const normalAcc = parseFloat(result.data.normal);
+                    const pneumoniaAcc = parseFloat(result.data.pneumonia);
+
+                    if (normalAcc < pneumoniaAcc) {
+                        setPrediction("PNEUMONIA");
+                        setAcc(pneumoniaAcc * 100)
+                    } else {
+                        setPrediction("NORMAL")
+                        setAcc(normalAcc * 100)
+                    }
+
+                    setLoading(false);
+                    setCompleted(true);
+                    setShowResult(true);
+                })
+                .catch((err) => {
+                    console.log(err);
+                    setLoading(false);
+                    setIsError(true);
+                    setCompleted(false);
+                    setMessage("An error occured. Try Again Later");
+                });
 
         } else {
             console.log("Select a file error message");
+            setLoading(false);
+            setIsError(true);
+            setCompleted(false);
+            setMessage("An error occured. Try Again Later");
         }
+    };
+
+    const handleDone = () => {
+        setLoading(false);
+        setIsError(false);
+        setCompleted(false);
+        setShowResult(false);
+        setMessage('');
+        setAcc(0);
+        setSelectedImage({ localUri: '' });
+
     };
 
 
@@ -71,15 +106,46 @@ export default function UploadXrayScreen() {
                         covid pneumonia level according to the chest X-ray and seek appropriate medical treatments accordingly.
                     </Text>
                 </View>
+
+                {isError &&
+                    <View style={styles.msgView}>
+                        <Text style={styles.instructions}>{message}</Text>
+                        <TouchableOpacity onPress={handleDone} style={styles.button}>
+                            <Icon name='done' color="#fff" />
+                            <Text style={styles.buttonText}>&nbsp;&nbsp;Done</Text>
+                        </TouchableOpacity>
+                    </View>
+                }
+
                 <Image
                     source={{ uri: selectedImage.localUri }}
                     style={styles.thumbnail}
                 />
 
-                <TouchableOpacity onPress={handleUpload} style={styles.button}>
-                    <Icon name='backup' color="#fff" />
-                    <Text style={styles.buttonText}>&nbsp;&nbsp;Upload X-Ray</Text>
-                </TouchableOpacity>
+                {loading &&
+                    <View>
+                        <ActivityIndicator size="large" color="#0000ff" />
+                        <Text style={styles.instructions}>Please wait. This will take some time.</Text>
+                    </View>
+                }
+
+                {!loading && !completed &&
+                    <TouchableOpacity onPress={handleUpload} style={styles.button}>
+                        <Icon name='backup' color="#fff" />
+                        <Text style={styles.buttonText}>&nbsp;&nbsp;Upload X-Ray</Text>
+                    </TouchableOpacity>
+                }
+
+                {showResult && <XrayResultCard result={prediction} accuracy={acc} />}
+
+
+                {completed &&
+                    <TouchableOpacity onPress={handleDone} style={styles.button}>
+                        <Icon name='done' color="#fff" />
+                        <Text style={styles.buttonText}>&nbsp;&nbsp;Done</Text>
+                    </TouchableOpacity>
+                }
+
             </View>
         );
     }
@@ -92,6 +158,16 @@ export default function UploadXrayScreen() {
                     covid pneumonia level according to the chest X-ray and seek appropriate medical treatments accordingly.
                 </Text>
             </View>
+
+            {isError &&
+                <View style={styles.msgView}>
+                    <Text style={styles.instructions}>{message}</Text>
+                    <TouchableOpacity onPress={handleDone} style={styles.button}>
+                        <Icon name='done' color="#fff" />
+                        <Text style={styles.buttonText}>&nbsp;&nbsp;Done</Text>
+                    </TouchableOpacity>
+                </View>
+            }
 
             <Text style={styles.instructions}>
                 Please upload a clear image of your chest X-ray.
@@ -135,11 +211,15 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
     },
     info: {
-        backgroundColor: '#5bf5ec',
+        backgroundColor: '#73d9d3',
         width: "100%",
         padding: 5,
         margin: 5,
         marginBottom: 20,
+    },
+    msgView: {
+        alignItems: 'center',
+        justifyContent: 'center',
     },
 });
 
