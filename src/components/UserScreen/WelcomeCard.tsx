@@ -7,7 +7,7 @@ import { SvgUri } from 'react-native-svg';
 const WelcomeCard = () => (
     <Card style={styles.cards}>
         <Card.Cover style={styles.cardCover} source={require('../../assets/images/homeimage.png')} />
-        <Card.Content>
+        <Card.Content style={styles.cardCover}>
             <Paragraph style={styles.text}>We are in this together - and we will get through this together.. Stay Safe..</Paragraph>
         </Card.Content>
 
