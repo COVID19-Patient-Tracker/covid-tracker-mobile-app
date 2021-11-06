@@ -5,7 +5,7 @@ import { theme } from '../../shared/theme';
 
 type Props = React.ComponentProps<typeof Input> & { errorText?: string };
 
-const TextInput = ({ errorText, ...props }: Props) => (
+const CustomTextInput = ({ errorText, ...props }: Props) => (
   <View style={styles.container}>
     <Input
       style={styles.input}
@@ -21,10 +21,11 @@ const TextInput = ({ errorText, ...props }: Props) => (
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    marginVertical: 12,
+    marginVertical: 6,
   },
   input: {
     backgroundColor: theme.colors.surface,
+    height: 45,
   },
   error: {
     fontSize: 14,
@@ -34,4 +35,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default memo(TextInput);
+export default memo(CustomTextInput);

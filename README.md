@@ -6,11 +6,19 @@ This app is integrated with Expo CLI
 
 # Usage
 Use yarn package manager always
+
+npm install -g yarn
+
 You need expo installed to run this
 
 ## Step 1 - Install expo
 ### Run "yarn global add expo-cli"
+check installed correctly
+expo --version
+
 This will add the expo cli. If the expo cli is not recognized please set the environemt path variables
+
+C:\Users\User\AppData\Local\Yarn\bin
 
 For more details refer https://reactnative.dev/docs/environment-setup
 
@@ -19,5 +27,5 @@ For more details refer https://reactnative.dev/docs/environment-setup
 This will install related packages
 
 ## Step 3
-## Run "yarn start" or "expo start"
+## Run "expo start"
 

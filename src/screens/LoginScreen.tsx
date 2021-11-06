@@ -1,84 +1,136 @@
 import React, { memo, useState } from 'react';
 import { Text, View, TouchableOpacity, StyleSheet, } from 'react-native';
 
-import Background from '../components/Layout/Background';
-import TextInput from '../components/Layout/TextInput';
-import BackButton from '../components/Layout/BackButton';
-import Button from '../components/Layout/Button';
-
+import CustomBackground from '../components/Layout/CustomBackground';
+import CustomTextInput from '../components/Layout/CustomTextInput';
+import CustomButton from '../components/Layout/CustomButton';
+import CustomHeader from '../components/Layout/CustomHeader';
 
 import { theme } from '../shared/theme'
 import { emailValidator, passwordValidator } from '../shared/utils';
 
 import { Navigation } from '../constants/types';
+import {API_URL} from '../shared/routes';
 
 type Props = {
     navigation: Navigation;
 };
 
 const LoginScreen = ({ navigation }: Props) => {
-    const [email, setEmail] = useState({ value: '', error: '' });
-    const [password, setPassword] = useState({ value: '', error: '' });
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [emailErr, setEmailErr] = useState('');
+    const [passwordErr, setPasswordErr] = useState('');
+
+    const [isError, setIsError] = useState(false);
+    const [message, setMessage] = useState('');
+    const [isLogin, setIsLogin] = useState(true);
 
     const _onLoginPressed = () => {
-        const emailError = emailValidator(email.value);
-        const passwordError = passwordValidator(password.value);
+        const emailError = emailValidator(email);
+        const passwordError = passwordValidator(password);
 
         if (emailError || passwordError) {
-            setEmail({ ...email, error: emailError });
-            setPassword({ ...password, error: passwordError });
+            setEmailErr(emailError);
+            setPasswordErr(passwordError);
             return;
         }
 
-        navigation.navigate('UserHomeScreen');
+        const payload = {
+            email,
+            password,
+        };
+
+        fetch(`${API_URL}/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload),
+        })
+        .then(async res => { 
+            try {
+                const jsonRes = await res.json();
+                if (res.status !== 200) {
+                    console.log("Error occured");
+                    console.log(jsonRes);
+                    setIsError(true);
+                    setMessage(jsonRes.exception);
+                } else {
+                    //onLoggedIn(jsonRes.token);
+                    console.log("No error");
+                    setIsError(false);
+                    setMessage(jsonRes.exception);
+                    navigation.navigate('UserRoot');
+                }
+            } catch (err) {
+                console.log(err);
+            };
+        })
+        .catch(err => {
+            console.log(err);
+        });
     };
 
     return (
-        <Background>
-            <BackButton goBack={() => navigation.navigate('HomeScreen')} />
+        <CustomBackground>
 
-            <TextInput
+            <CustomHeader>Welcome back...</CustomHeader>
+
+            <CustomTextInput
                 label="Email"
                 returnKeyType="next"
-                value={email.value}
-                onChangeText={text => setEmail({ value: text, error: '' })}
-                error={!!email.error}
-                errorText={email.error}
+                value={email}
+                onChangeText={text => {
+                    setEmail(text);
+                    setEmailErr('');
+                    setIsError(false);
+                    setMessage('');
+                }}
+                error={!!emailErr}
+                errorText={emailErr}
                 autoCapitalize="none"
                 autoCompleteType="email"
                 textContentType="emailAddress"
                 keyboardType="email-address"
             />
 
-            <TextInput
+            <CustomTextInput
                 label="Password"
                 returnKeyType="done"
-                value={password.value}
-                onChangeText={text => setPassword({ value: text, error: '' })}
-                error={!!password.error}
-                errorText={password.error}
+                value={password}
+                onChangeText={text => {
+                    setPassword(text);
+                    setPasswordErr('');
+                    setIsError(false);
+                    setMessage('');
+                }}
+                error={!!passwordErr}
+                errorText={passwordErr}
                 secureTextEntry
             />
 
             <View style={styles.forgotPassword}>
                 <TouchableOpacity
-                    onPress={() => navigation.navigate('ForgotPasswordScreen')}
+                    onPress={() => navigation.navigate('ForgotPassword')}
                 >
                     <Text style={styles.label}>Forgot your password?</Text>
                 </TouchableOpacity>
             </View>
 
-            <Button mode="contained" onPress={_onLoginPressed}>
+            {isError && <Text style={styles.errorText}>{message}</Text>}
+
+            <CustomButton mode="contained" onPress={_onLoginPressed}>
                 Login
-            </Button>
+            </CustomButton>
 
             <View style={styles.row}>
                 <Text style={styles.label}>Don’t have an account? </Text>
-                <TouchableOpacity onPress={() => navigation.navigate('RegisterScreen')}>
+                <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
                     <Text style={styles.link}>Sign up</Text>
                 </TouchableOpacity>
             </View>
-        </Background>
+        </CustomBackground>
     );
 };
 
@@ -98,6 +150,10 @@ const styles = StyleSheet.create({
     link: {
         fontWeight: 'bold',
         color: theme.colors.primary,
+    },
+    errorText: {
+        fontWeight: 'bold',
+        color: theme.colors.error,
     },
 });
 
