@@ -155,7 +155,7 @@ export default function UploadXrayScreen() {
             <View style={styles.info}>
                 <Text style={styles.instructions}>
                     This model is a self-diagnosis that is meant to help individials to get an prediction of the
-                    covid pneumonia level according to the chest X-ray and seek appropriate medical treatments accordingly.
+                    covid pneumonia level according to the chest X-Ray and seek appropriate medical treatments accordingly.
                 </Text>
             </View>
 
@@ -170,7 +170,7 @@ export default function UploadXrayScreen() {
             }
 
             <Text style={styles.instructions}>
-                Please upload a clear image of your chest X-ray.
+                Please upload a clear image of your chest X-Ray.
             </Text>
 
             <TouchableOpacity onPress={openImagePickerAsync} style={styles.button}>
@@ -191,10 +191,10 @@ const styles = StyleSheet.create({
         fontSize: 16,
         marginHorizontal: 15,
         marginBottom: 10,
-        lineHeight: 22,
+        lineHeight: 24,
     },
     button: {
-        backgroundColor: '#066c66',
+        backgroundColor: '#1f7091',
         padding: 12,
         borderRadius: 5,
         flexDirection: 'row',

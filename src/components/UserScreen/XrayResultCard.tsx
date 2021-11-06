@@ -29,11 +29,11 @@ const XrayResultCard = ({result , accuracy}: customProp) => {
 const styles = StyleSheet.create({
     cardStyle: {
         //borderWidth: 2,
-        //backgroundColor: "#b6dddb",
+        backgroundColor: "#a6cfc5",
         borderRadius: 8,
-        width: "100%",
-        margin:10,
-        padding: 5,
+        width: "90%",
+        margin:15,
+        padding: 10,
         paddingLeft:30,
         alignSelf: 'center',
     },
