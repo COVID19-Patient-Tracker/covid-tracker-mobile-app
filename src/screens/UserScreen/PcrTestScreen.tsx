@@ -9,10 +9,18 @@ import { API_URL, test_acess_token } from '../../shared/routes';
 
 const dataSet = [
     {
-        id: 1,
-        date: "2021-12-12",
-        place: "Vaccination Center",
-        result: "pending"
+        id: 143,
+        patientId: 1000,
+        hospital_id: 2,
+        test_data: "2021-03-12",
+        test_result: "POSITIVE",
+    },
+    {
+        id: 211,
+        patientId: 1000,
+        hospital_id: 3,
+        test_data: "2021-07-12",
+        test_result: "NEGATIVE",
     },
 ]
 
@@ -23,31 +31,31 @@ export default function PcrTestScreen() {
     const [message, setMessage] = useState('');
     const [isError, setIsError] = useState(false);
 
-    useEffect(() => {
-        axios.get(`${API_URL}/management/api/V1/visitor/pcr/2`, {
-            headers: {
-                'Authorization': `Bearer ${test_acess_token}`
-            }
-        })
-            .then((res) => {
-                if (res.data.TestData.length == 0) {
-                    setIsError(true);
-                    setMessage("No Records to Display");
-                    console.log(message);
-                } else {
-                    for (let obj of res.data.TestData) {
-                        pcrTestList.push(obj);
-                    }
-                    console.log(pcrTestList);
-                }
-            })
-            .catch((error) => {
-                console.error(error);
-                setIsError(true);
-                setMessage("An error Occured. Try Again Later");
-                console.log(message);
-            })
-    }, []);
+    // useEffect(() => {
+    //     axios.get(`${API_URL}/management/api/V1/visitor/pcr/2`, {
+    //         headers: {
+    //             'Authorization': `Bearer ${test_acess_token}`
+    //         }
+    //     })
+    //         .then((res) => {
+    //             if (res.data.TestData.length == 0) {
+    //                 setIsError(true);
+    //                 setMessage("No Records to Display");
+    //                 console.log(message);
+    //             } else {
+    //                 for (let obj of res.data.TestData) {
+    //                     pcrTestList.push(obj);
+    //                 }
+    //                 console.log(pcrTestList);
+    //             }
+    //         })
+    //         .catch((error) => {
+    //             console.error(error);
+    //             setIsError(true);
+    //             setMessage("An error Occured. Try Again Later");
+    //             console.log(message);
+    //         })
+    // }, []);
 
     return (
         <View style={styles.container}>
@@ -56,7 +64,7 @@ export default function PcrTestScreen() {
                     <Text style={styles.infoFont}>{message}</Text>
                 </View>
             }
-            {pcrTestList.map((test: PcrTest) => {
+            {dataSet.map((test: PcrTest) => {
                 return (
                     <TestResultCard key={test.id} testData={test} />
                 )

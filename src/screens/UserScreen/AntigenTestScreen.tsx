@@ -9,16 +9,11 @@ import { API_URL, test_acess_token } from '../../shared/routes';
 
 const dataSet = [
     {
-        id: 1 ,
-        date: "2021-12-12", 
-        place:"Vaccination Center", 
-        result: "positive"
-    },
-    {
-        id: 780 ,
-        date: "2021-12-12", 
-        place:"Colombo Hospital", 
-        result: "negative"
+        id: 121,
+        patientId: 1000,
+        hospital_id: 3,
+        test_data: "2021-09-12",
+        test_result: "NEGATIVE",
     },
 ]
 
@@ -28,31 +23,31 @@ export default function AntigenTestScreen() {
     const [message, setMessage] = useState('');
     const [isError, setIsError] = useState(false);
 
-    useEffect(() => {
-        axios.get(`${API_URL}/management/api/V1/visitor/antigen/1`, {
-            headers: {
-                'Authorization': `Bearer ${test_acess_token}`
-            }
-        })
-            .then((res) => {
-                if (res.data.TestData.length == 0) {
-                    setIsError(true);
-                    setMessage("No Records to Display");
-                    console.log(message);
-                } else {
-                    for (let obj of res.data.TestData) {
-                        antigenTestList.push(obj);
-                    }
-                    console.log(antigenTestList);
-                }
-            })
-            .catch((error) => {
-                console.error(error);
-                setIsError(true);
-                setMessage("An error Occured. Try Again Later");
-                console.log(message);
-            })
-    }, []);
+    // useEffect(() => {
+    //     axios.get(`${API_URL}/management/api/V1/visitor/antigen/1`, {
+    //         headers: {
+    //             'Authorization': `Bearer ${test_acess_token}`
+    //         }
+    //     })
+    //         .then((res) => {
+    //             if (res.data.TestData.length == 0) {
+    //                 setIsError(true);
+    //                 setMessage("No Records to Display");
+    //                 console.log(message);
+    //             } else {
+    //                 for (let obj of res.data.TestData) {
+    //                     antigenTestList.push(obj);
+    //                 }
+    //                 console.log(antigenTestList);
+    //             }
+    //         })
+    //         .catch((error) => {
+    //             console.error(error);
+    //             setIsError(true);
+    //             setMessage("An error Occured. Try Again Later");
+    //             console.log(message);
+    //         })
+    // }, []);
     
     return (
         <View style={styles.container}>
@@ -61,7 +56,7 @@ export default function AntigenTestScreen() {
                     <Text style={styles.infoFont}>{message}</Text>
                 </View>
             }
-            {antigenTestList.map((test: PcrTest) => {
+            {dataSet.map((test: PcrTest) => {
                 return (
                     <TestResultCard key={test.id} testData={test} />
                 )
