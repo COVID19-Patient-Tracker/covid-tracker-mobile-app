@@ -8,3 +8,4 @@ export { default as UserProfileScreen } from './UserScreen/UserProfileScreen';
 export { default as PcrTestScreen } from './UserScreen/PcrTestScreen';
 export { default as AntigenTestScreen } from './UserScreen/AntigenTestScreen';
 export { default as VisitHistoryScreen } from './UserScreen/VisitHistoryScreen';
+export { default as UploadXrayScreen } from './UploadXrayScreen';

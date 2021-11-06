@@ -21,6 +21,7 @@ import {
   PcrTestScreen,
   AntigenTestScreen,
   VisitHistoryScreen,
+  UploadXrayScreen,
 } from '../screens';
 
 export default function Navigation() {
@@ -79,6 +80,14 @@ function RootNavigator() {
         }}
       />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
+      <Stack.Screen name="Uploadxray" component={UploadXrayScreen}
+        options={{
+          title: 'Upload Xray',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
+      />
     </Stack.Navigator>
   );
 }
@@ -92,7 +101,7 @@ function BottomTabNavigator() {
     <BottomTab.Navigator
       initialRouteName="UserHome"
       screenOptions={{
-        tabBarActiveTintColor: "#6a8eda",
+        tabBarActiveTintColor: "#137ea1",
       }}>
       <BottomTab.Screen
         name="UserHome"
@@ -136,8 +145,8 @@ function TopTapNavigator() {
       initialRouteName="PcrTest"
       screenOptions={{
         tabBarActiveTintColor: '#fff',
-        tabBarLabelStyle: { fontSize: 15, fontWeight:"bold" },
-        tabBarStyle: { backgroundColor: "#0c2a61" },
+        tabBarLabelStyle: { fontSize: 16, fontWeight:"bold" },
+        tabBarStyle: { backgroundColor: "#11a5a0" },
       }}
     >
       <Tab.Screen

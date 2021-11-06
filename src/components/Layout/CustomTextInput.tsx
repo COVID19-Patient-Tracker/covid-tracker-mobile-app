@@ -21,11 +21,11 @@ const CustomTextInput = ({ errorText, ...props }: Props) => (
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    marginVertical: 12,
+    marginVertical: 6,
   },
   input: {
     backgroundColor: theme.colors.surface,
-    borderRadius: 20,
+    height: 45,
   },
   error: {
     fontSize: 14,

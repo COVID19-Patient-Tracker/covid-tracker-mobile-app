@@ -1,11 +1,11 @@
 import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 
-import {Test} from '../../constants/datatypes'
+import {Test, PcrTest} from '../../constants/datatypes'
 
 
 type customProp = {
-    testData: Test;
+    testData: PcrTest;
 }
 
 const TestResultCard = ({ testData }: customProp) => {
@@ -18,11 +18,11 @@ const TestResultCard = ({ testData }: customProp) => {
                 </Text>
                 <Text style={styles.topicFont}>
                     Date :&nbsp;
-                    <Text style={styles.dataFont}>&nbsp;{testData.date}</Text>
+                    <Text style={styles.dataFont}>&nbsp;{testData.test_data}</Text>
                 </Text>
                 <Text style={styles.topicFont}>
-                    Place :&nbsp;
-                    <Text style={styles.dataFont}>&nbsp;{testData.place}</Text>
+                    Test Hospital ID :&nbsp;
+                    <Text style={styles.dataFont}>&nbsp;{testData.hospital_id}</Text>
                 </Text>
             </View>
             <View style={styles.resultCard}>
@@ -30,7 +30,7 @@ const TestResultCard = ({ testData }: customProp) => {
                     Result
                 </Text>
                 <Text style={styles.resultFont}>
-                    {testData.result}
+                    {testData.test_result}
                 </Text>
             </View>
 
@@ -41,12 +41,13 @@ const TestResultCard = ({ testData }: customProp) => {
 const styles = StyleSheet.create({
     cardStyle: {
         //borderWidth: 1,
-        backgroundColor: "#97c7e1",
-        borderRadius: 15,
+        backgroundColor: "#b6dddb",
+        borderRadius: 10,
         width: "100%",
         margin:5,
         flexDirection: 'row',
         padding: 5,
+        paddingLeft:15,
     },
     dataCard: {
         width: "65%",

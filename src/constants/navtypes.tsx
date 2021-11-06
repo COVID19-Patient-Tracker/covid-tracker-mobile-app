@@ -24,6 +24,7 @@ export type RootStackParamList = {
   NotFound: undefined;
   TestRoot: undefined,
   Visit: undefined,
+  Uploadxray: undefined,
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<
