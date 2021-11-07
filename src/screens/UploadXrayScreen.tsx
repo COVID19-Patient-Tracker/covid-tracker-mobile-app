@@ -11,7 +11,7 @@ export default function UploadXrayScreen() {
     const [loading, setLoading] = useState(false);
     const [showResult, setShowResult] = useState(false);
     const [prediction, setPrediction] = useState("NORMAL");
-    const [acc, setAcc] = useState(0);
+    const [acc, setAcc] = useState('');
     const [completed, setCompleted] = useState(false);
     const [isError, setIsError] = useState(false);
     const [message, setMessage] = useState("");
@@ -53,15 +53,15 @@ export default function UploadXrayScreen() {
                 .then((result) => {
                     console.log(result);
 
-                    const normalAcc = parseFloat(result.data.normal);
-                    const pneumoniaAcc = parseFloat(result.data.pneumonia);
+                    const normalAcc = parseFloat(result.data.normal)*100;
+                    const pneumoniaAcc = parseFloat(result.data.pneumonia)*100;
 
                     if (normalAcc < pneumoniaAcc) {
                         setPrediction("PNEUMONIA");
-                        setAcc(pneumoniaAcc * 100)
+                        setAcc(pneumoniaAcc.toFixed(2) + "%")
                     } else {
                         setPrediction("NORMAL")
-                        setAcc(normalAcc * 100)
+                        setAcc(normalAcc.toFixed(2)+ "%")
                     }
 
                     setLoading(false);
@@ -91,7 +91,7 @@ export default function UploadXrayScreen() {
         setCompleted(false);
         setShowResult(false);
         setMessage('');
-        setAcc(0);
+        setAcc('');
         setSelectedImage({ localUri: '' });
 
     };
