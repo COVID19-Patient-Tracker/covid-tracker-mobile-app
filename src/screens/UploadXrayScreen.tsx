@@ -102,7 +102,7 @@ export default function UploadXrayScreen() {
             <View style={styles.container}>
                 <View style={styles.info}>
                     <Text style={styles.instructions}>
-                        This model is a self-diagnosis that is meant to help individials to get an prediction of the
+                        This model is a self-diagnosis that is meant to help individuals to get an prediction of the
                         covid pneumonia level according to the chest X-ray and seek appropriate medical treatments accordingly.
                     </Text>
                 </View>
@@ -124,7 +124,7 @@ export default function UploadXrayScreen() {
 
                 {loading &&
                     <View>
-                        <ActivityIndicator size="large" color="#0000ff" />
+                        <ActivityIndicator size="large" color="#1f7091" />
                         <Text style={styles.instructions}>Please wait. This will take some time.</Text>
                     </View>
                 }
