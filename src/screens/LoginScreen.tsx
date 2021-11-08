@@ -1,5 +1,5 @@
 import React, { memo, useState } from 'react';
-import { Text, View, TouchableOpacity, StyleSheet, } from 'react-native';
+import { Text, View, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
 
 import CustomBackground from '../components/Layout/CustomBackground';
 import CustomTextInput from '../components/Layout/CustomTextInput';
@@ -25,6 +25,7 @@ const LoginScreen = ({ navigation }: Props) => {
     const [isError, setIsError] = useState(false);
     const [message, setMessage] = useState('');
     const [isLogin, setIsLogin] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
 
     const _onLoginPressed = () => {
         const emailError = emailValidator(email);
@@ -41,6 +42,7 @@ const LoginScreen = ({ navigation }: Props) => {
             password,
         };
 
+        setIsLoading(true);
         fetch(`${API_URL}/login`, {
             method: 'POST',
             headers: {
@@ -52,11 +54,13 @@ const LoginScreen = ({ navigation }: Props) => {
             try {
                 const jsonRes = await res.json();
                 if (res.status !== 200) {
+                    setIsLoading(false);
                     console.log("Error occured");
                     console.log(jsonRes);
                     setIsError(true);
                     setMessage(jsonRes.exception);
                 } else {
+                    setIsLoading(false);
                     //onLoggedIn(jsonRes.token);
                     console.log("No error");
                     setIsError(false);
@@ -64,10 +68,12 @@ const LoginScreen = ({ navigation }: Props) => {
                     navigation.navigate('UserRoot');
                 }
             } catch (err) {
+                setIsLoading(false);
                 console.log(err);
             };
         })
         .catch(err => {
+            setIsLoading(false);
             console.log(err);
         });
     };
@@ -118,6 +124,7 @@ const LoginScreen = ({ navigation }: Props) => {
                 </TouchableOpacity>
             </View>
 
+            {isLoading && <ActivityIndicator size="large" color="#04767a" /> }
             {isError && <Text style={styles.errorText}>{message}</Text>}
 
             <CustomButton mode="contained" onPress={_onLoginPressed}>

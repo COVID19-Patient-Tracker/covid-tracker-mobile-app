@@ -1,10 +1,10 @@
 import React, { memo, useState, useEffect } from 'react';
 import axios from "axios";
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, ActivityIndicator } from 'react-native';
 
 import TestResultCard from '../../components/UserScreen/TestResultCard';
 
-import { Test, PcrTest } from '../../constants/datatypes';
+import { PcrTest } from '../../constants/datatypes';
 import { API_URL, test_acess_token } from '../../shared/routes';
 
 const dataSet = [
@@ -22,41 +22,42 @@ export default function AntigenTestScreen() {
     const [antigenTestList, setAntigenTestList] = useState<Array<PcrTest>>([]);
     const [message, setMessage] = useState('');
     const [isError, setIsError] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
-    // useEffect(() => {
-    //     axios.get(`${API_URL}/management/api/V1/visitor/antigen/1`, {
-    //         headers: {
-    //             'Authorization': `Bearer ${test_acess_token}`
-    //         }
-    //     })
-    //         .then((res) => {
-    //             if (res.data.TestData.length == 0) {
-    //                 setIsError(true);
-    //                 setMessage("No Records to Display");
-    //                 console.log(message);
-    //             } else {
-    //                 for (let obj of res.data.TestData) {
-    //                     antigenTestList.push(obj);
-    //                 }
-    //                 console.log(antigenTestList);
-    //             }
-    //         })
-    //         .catch((error) => {
-    //             console.error(error);
-    //             setIsError(true);
-    //             setMessage("An error Occured. Try Again Later");
-    //             console.log(message);
-    //         })
-    // }, []);
-    
+    useEffect(() => {
+        setIsLoading(true);
+        axios.get(`${API_URL}/management/api/V1/visitor/antigen/2`, {
+            headers: {
+                'Authorization': `Bearer ${test_acess_token}`
+            }
+        })
+            .then((res) => {
+                setIsLoading(false);
+                if (res.data.TestData.length == 0) {
+                    setIsError(true);
+                    setMessage("No Records to Display");
+                } else {
+                    setAntigenTestList(res.data.TestData);
+                    console.log(antigenTestList);
+                }
+            })
+            .catch((error) => {
+                setIsLoading(false);
+                console.error(error);
+                setIsError(true);
+                setMessage("An error Occured. Try Again Later");
+            })
+    }, []);
+
     return (
         <View style={styles.container}>
+            {isLoading && <ActivityIndicator size="large" color="#04767a" />}
             {isError &&
                 <View style={styles.info}>
                     <Text style={styles.infoFont}>{message}</Text>
                 </View>
             }
-            {dataSet.map((test: PcrTest) => {
+            {antigenTestList.map((test: PcrTest) => {
                 return (
                     <TestResultCard key={test.id} testData={test} />
                 )

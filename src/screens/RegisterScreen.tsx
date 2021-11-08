@@ -1,5 +1,5 @@
 import React, { memo, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
 
 import CustomBackground from '../components/Layout/CustomBackground';
 import CustomButton from '../components/Layout/CustomButton';
@@ -32,6 +32,7 @@ const RegisterScreen = ({ navigation }: Props) => {
 
   const [isError, setIsError] = useState(false);
   const [message, setMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const _onSignUpPressed = () => {
     const patient_idError = idValidator(patient_id);
@@ -54,6 +55,8 @@ const RegisterScreen = ({ navigation }: Props) => {
       password,
     };
 
+    setIsLoading(true);
+
     fetch(`${API_URL}/app/V1/user/signup`, {
       method: 'POST',
       headers: {
@@ -65,11 +68,13 @@ const RegisterScreen = ({ navigation }: Props) => {
         try {
           const jsonRes = await res.json();
           if (res.status !== 200) {
+            setIsLoading(false);
             console.log("Error occured");
             console.log(jsonRes);
             setIsError(true);
             setMessage(jsonRes.exception);
           } else {
+            setIsLoading(false);
             //onLoggedIn(jsonRes.token);
             console.log("No error");
             setIsError(false);
@@ -77,10 +82,12 @@ const RegisterScreen = ({ navigation }: Props) => {
             navigation.navigate('UserRoot');
           }
         } catch (err) {
+          setIsLoading(false);
           console.log(err);
         };
       })
       .catch(err => {
+        setIsLoading(false);
         console.log(err);
       });
   };
@@ -152,6 +159,7 @@ const RegisterScreen = ({ navigation }: Props) => {
         errorText={passwordErr}
         secureTextEntry
       />
+      {isLoading && <ActivityIndicator size="large" color="#04767a" /> }
       {isError && <Text style={styles.errorText}>{message}</Text>}
 
       <CustomButton mode="contained" onPress={_onSignUpPressed} style={styles.button}>

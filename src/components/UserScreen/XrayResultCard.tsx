@@ -4,7 +4,7 @@ import {dateTime } from '../../shared/utils';
 
 type customProp = {
     result: string,
-    accuracy: number,
+    accuracy: string,
   }
 
 const XrayResultCard = ({result , accuracy}: customProp) => {

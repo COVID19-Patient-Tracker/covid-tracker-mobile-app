@@ -1,7 +1,9 @@
 {
   "expo": {
-    "name": "covid-safe",
+    "name": "Covid-Safe",
     "slug": "covid-safe",
+    "privacy": "public",
+    "description": "Covid Patient Tracker mobile application",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -23,7 +25,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.roshi18.covidsafe"
     },
     "web": {
       "favicon": "./assets/favicon.png"
