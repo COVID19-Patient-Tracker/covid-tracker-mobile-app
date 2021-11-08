@@ -18,7 +18,7 @@ const TestResultCard = ({ testData }: customProp) => {
                 </Text>
                 <Text style={styles.topicFont}>
                     Date :&nbsp;
-                    <Text style={styles.dataFont}>&nbsp;{testData.test_data}</Text>
+                    <Text style={styles.dataFont}>&nbsp;{testData.test_data.split('T')[0]}</Text>
                 </Text>
                 <Text style={styles.topicFont}>
                     Test Hospital ID :&nbsp;
