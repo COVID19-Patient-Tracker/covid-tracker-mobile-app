@@ -73,10 +73,9 @@ const RegisterScreen = ({ navigation }: Props) => {
             console.log(jsonRes);
             setIsError(true);
             setMessage(jsonRes.exception);
+            
           } else {
             setIsLoading(false);
-            //onLoggedIn(jsonRes.token);
-            console.log("No error");
             setIsError(false);
             setMessage(jsonRes.exception);
             navigation.navigate('UserRoot');
