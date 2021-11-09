@@ -1,12 +1,7 @@
 import React, { memo } from 'react';
-import { Text, View, ScrollView, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, View, ScrollView, Image, StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native';
 import { Button } from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
-
-import CustomBackground from '../components/Layout/CustomBackground';
-import TestResultCard from '../components/UserScreen/TestResultCard';
-import CustomBackground2 from '../components/Layout/CustomBackground2';
-import CustomHeader from '../components/Layout/CustomHeader';
 
 import { Navigation } from '../constants/types';
 
@@ -47,12 +42,12 @@ const HomeScreen = ({ navigation }: Props) => (
             />
         </View>
         <LinearGradient
-            colors={['#0f536c','#91dde1', '#1bbed6']}
+            colors={['#0f536c', '#91dde1', '#1bbed6']}
             start={{ x: 0, y: 0.5 }}
             end={{ x: 1, y: 1 }}
             style={styles.container5}
         >
-            <TouchableOpacity style={{flexDirection:'row'}} onPress={() =>navigation.navigate('Uploadxray') }>
+            <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => navigation.navigate('Uploadxray')}>
                 <View>
                     <Image
                         style={styles.cardImg}
@@ -66,6 +61,20 @@ const HomeScreen = ({ navigation }: Props) => (
             </TouchableOpacity>
         </LinearGradient>
 
+        <View style={styles.container4}>
+            <Image
+                style={styles.sympImg}
+                source={require('../assets/images/remedy.png')}
+            />
+        </View>
+
+        {/* <Button
+                mode="contained"
+                style={styles.btn}
+                onPress={() => navigation.navigate('UserRoot')}
+            >
+                HOME
+            </Button> */}
     </ScrollView>
 )
 export default memo(HomeScreen);
