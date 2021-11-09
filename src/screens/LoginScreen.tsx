@@ -1,5 +1,6 @@
 import React, { memo, useState } from 'react';
-import { Text, View, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
+import { Text, View, TouchableOpacity, StyleSheet, ActivityIndicator} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import CustomBackground from '../components/Layout/CustomBackground';
 import CustomTextInput from '../components/Layout/CustomTextInput';
@@ -26,6 +27,17 @@ const LoginScreen = ({ navigation }: Props) => {
     const [message, setMessage] = useState('');
     const [isLogin, setIsLogin] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
+    const STORAGE_KEY_EMAIL = 'USER_EMAIL';
+    const STORAGE_KEY_USERID = 'USER_ID';
+
+    const saveUser = async (email:string , userID:string) => {
+        try {
+          await AsyncStorage.setItem(STORAGE_KEY_EMAIL, email);
+          await AsyncStorage.setItem(STORAGE_KEY_USERID, userID);
+        } catch (e) {
+          console.error('Failed to save name.')
+        }
+      }
 
     const _onLoginPressed = () => {
         const emailError = emailValidator(email);
@@ -51,6 +63,7 @@ const LoginScreen = ({ navigation }: Props) => {
             body: JSON.stringify(payload),
         })
         .then(async res => { 
+            console.log(res);
             try {
                 const jsonRes = await res.json();
                 if (res.status !== 200) {
@@ -61,10 +74,10 @@ const LoginScreen = ({ navigation }: Props) => {
                     setMessage(jsonRes.exception);
                 } else {
                     setIsLoading(false);
-                    //onLoggedIn(jsonRes.token);
-                    console.log("No error");
+                    console.log(jsonRes);
+                    saveUser(jsonRes.email, jsonRes.id);
                     setIsError(false);
-                    setMessage(jsonRes.exception);
+                    setMessage('');
                     navigation.navigate('UserRoot');
                 }
             } catch (err) {
