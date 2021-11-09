@@ -12,23 +12,23 @@ const VisitHistoryCard = ({ VisitData }: customProp) => {
         <View style={styles.cardStyle}>
                 <Text style={styles.topicFont}>
                     ID          :&nbsp;
-                    <Text style={styles.dataFont}>&nbsp;{VisitData.id}</Text>
+                    <Text style={styles.dataFont}>&nbsp;{VisitData.visit_id}</Text>
                 </Text>
                 <Text style={styles.topicFont}>
                     Date    :&nbsp;
-                    <Text style={styles.dataFont}>&nbsp;{VisitData.date}</Text>
+                    <Text style={styles.dataFont}>&nbsp;{VisitData.visit_date.split('T')[0]}</Text>
                 </Text>
                 <Text style={styles.topicFont}>
                     Hospital   :&nbsp;
-                    <Text style={styles.dataFont}>&nbsp;{VisitData.hospital}</Text>
+                    <Text style={styles.dataFont}>&nbsp;{VisitData.hospital.name}</Text>
                 </Text>
                 <Text style={styles.topicFont}>
                     Ward    :&nbsp;
-                    <Text style={styles.dataFont}>&nbsp;{VisitData.ward}</Text>
+                    <Text style={styles.dataFont}>&nbsp;{VisitData.ward_id}</Text>
                 </Text>
                 <Text style={styles.topicFont}>
                     Status  :&nbsp;
-                    <Text style={styles.dataFont}>&nbsp;{VisitData.status}</Text>
+                    <Text style={styles.dataFont}>&nbsp;{VisitData.visit_status}</Text>
                 </Text>
         </View>
     );

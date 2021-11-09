@@ -14,12 +14,22 @@ export type PcrTest = {
 };
 
 export type VisitHistory = {
-    id: number;
-    date: string;
-    hospital: string;
-    ward: number;
-    status: string;
+    visit_id: number;
+    visit_date: string;
+    hospital: Hospital;
+    ward_id: number;
+    visit_status: string;
+    data: string;
+    patient_id:number;
 };
+
+type Hospital = {
+    address: string,
+    capacity: number,
+    hospital_id: number,
+    name: number,
+    telephone: string,
+}
 
 export type ImagePickerResultType = {
     cancelled: true;
